@@ -1,0 +1,27 @@
+<article class="mha-filter-form">
+  <form [formGroup]="filterForm">
+    <div class="mdheaderrmha-filter-form__form">
+      <label class="mdheaderrmha-filter-form__form-label" for="hero-id"
+        >Filtrar por ID:
+      </label>
+      <input
+        class="mdheaderrmha-filter-form__form-input"
+        id="hero-id"
+        formControlName="id"
+      />
+    </div>
+    <div class="mdheaderrmha-filter-form__form-button">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onSubmit()"
+        [disabled]="!filterForm.valid"
+      >
+        Submit
+      </button>
+      <button mat-raised-button color="accent" (click)="clearSelection()">
+        Limpiar
+      </button>
+    </div>
+  </form>
+</article>

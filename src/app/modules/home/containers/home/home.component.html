@@ -1,1 +1,5 @@
+<mha-filter-form
+  (submitEmitter)="filterHeroById($event)"
+  (clearEmitter)="clearSelection()"
+></mha-filter-form>
 <mha-table [dataSource]="heroesList"></mha-table>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../../shared.module';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
@@ -19,10 +19,19 @@ const HEROES = [
 })
 export class HeroService {
   constructor() {}
+  public _heroesList: any;
 
   public getMyHeroes() {
+    if (!this._heroesList) {
+      this._heroesList = HEROES;
+    }
     return of({
-      heroes: HEROES,
+      heroes: this._heroesList,
     }).pipe(delay(2000));
+  }
+
+  public filterById(id: number) {
+    const copyObj = JSON.parse(JSON.stringify(this._heroesList));
+    return copyObj.filter((el: any) => el.id == id);
   }
 }

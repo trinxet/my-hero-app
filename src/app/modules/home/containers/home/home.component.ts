@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HeroService } from 'src/app/shared';
+import { APP_ROUTERS, HeroService } from 'src/app/shared';
 import { startWith, Subject, takeUntil, tap } from 'rxjs';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { PageEvent } from '@angular/material/paginator';
@@ -60,7 +60,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getHeroes(e.pageIndex, this.pageSize);
   }
 
-  public gotoAdd() {}
+  public getCreateRoute() {
+    return '/' + APP_ROUTERS.CREATE_HERO.path;
+  }
 
   private getHeroes(pageNumber: number, itemsPerPage: number) {
     this.loadingService.show(); //si fuese una llamada http real no haría falta ya que esta implementado el interceptor;

@@ -4,7 +4,9 @@
       (submitEmitter)="filterHeroByName($event)"
     ></mha-filter-form>
 
-    <span class="mha-home__options-add" (click)="gotoAdd()"> Añadir</span>
+    <span class="mha-home__options-add" [routerLink]="getCreateRoute()">
+      Añadir</span
+    >
   </div>
   <div class="mha-home__table">
     <mha-table [dataSource]="heroesList.heroes"></mha-table>

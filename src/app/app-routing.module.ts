@@ -9,6 +9,13 @@ const routes: Routes = [
       import('./modules/home/home.module').then((m) => m.HomeModule),
   },
   {
+    path: APP_ROUTERS.CREATE_HERO.path,
+    loadChildren: () =>
+      import('./modules/create-hero/create-hero.module').then(
+        (m) => m.CreateHeroModule
+      ),
+  },
+  {
     path: '',
     redirectTo: APP_ROUTERS.HOME.path,
     pathMatch: 'full',

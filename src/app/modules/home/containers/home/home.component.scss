@@ -1,0 +1,23 @@
+.mha-home {
+  padding: 30px;
+  &__options {
+    align-items: center;
+    background-color: #023535;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 32px;
+
+    &-add:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__table {
+    margin-top: 16px;
+  }
+
+  &__paginator {
+    margin-top: 16px;
+  }
+}

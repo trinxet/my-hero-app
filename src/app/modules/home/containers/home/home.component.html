@@ -1,5 +1,22 @@
-<mha-filter-form
-  (submitEmitter)="filterHeroById($event)"
-  (clearEmitter)="clearSelection()"
-></mha-filter-form>
-<mha-table [dataSource]="heroesList"></mha-table>
+<div class="mha-home" *ngIf="heroesList">
+  <div class="mha-home__options">
+    <mha-filter-form
+      (submitEmitter)="filterHeroByName($event)"
+    ></mha-filter-form>
+
+    <span class="mha-home__options-add" (click)="gotoAdd()"> Añadir</span>
+  </div>
+  <div class="mha-home__table">
+    <mha-table [dataSource]="heroesList.heroes"></mha-table>
+  </div>
+  <div class="mha-home__paginator">
+    <mat-paginator
+      [length]="heroesList.size"
+      [pageSize]="2"
+      [pageSizeOptions]="[1, 2, 5]"
+      (page)="handlePageEvent($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

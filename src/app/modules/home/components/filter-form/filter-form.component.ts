@@ -1,30 +1,27 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'mha-filter-form',
   templateUrl: './filter-form.component.html',
   styleUrls: ['./filter-form.component.scss'],
 })
-export class FilterFormComponent {
+export class FilterFormComponent implements OnInit {
   @Output()
-  clearEmitter: EventEmitter<string> = new EventEmitter<string>();
+  submitEmitter: EventEmitter<string> = new EventEmitter<string>();
 
-  @Output()
-  submitEmitter: EventEmitter<number> = new EventEmitter<number>();
+  public heroNameInput = new FormControl();
 
-  public filterForm: FormGroup = new FormGroup({
-    id: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[0-9]*$'),
-    ]),
-  });
-
-  public clearSelection() {
-    this.clearEmitter.next('test');
+  ngOnInit(): void {
+    this.heroNameInput.valueChanges
+      .pipe(debounceTime(500))
+      .subscribe((data: string) => {
+        this.submitEmitter.next(data);
+      });
   }
 
-  public onSubmit() {
-    this.submitEmitter.next(this.filterForm.value.id);
+  public clearSelection() {
+    this.heroNameInput.setValue('');
   }
 }

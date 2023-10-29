@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { SharedModule, HeroService } from '../../shared';
 import { FilterFormComponent } from './components/filter-form/filter-form.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [HomeComponent, FilterFormComponent],
@@ -14,6 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatPaginatorModule,
+    MatIconModule,
     SharedModule,
 
     RouterModule.forChild(homeRoutes),

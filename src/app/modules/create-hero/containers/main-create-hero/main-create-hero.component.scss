@@ -1,0 +1,24 @@
+.main-create-hero {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    max-width: 750px;
+    padding: 30px;
+    margin: 0 auto;
+  }
+  &__header {
+    align-items: center;
+    background-color: #023535;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    width: 100%;
+  }
+
+  &__form {
+    background-color: #cacaca;
+    border: solid 1px #878787;
+    padding: 16px;
+  }
+}

@@ -9,7 +9,11 @@
     >
   </div>
   <div class="mha-home__table">
-    <mha-table [dataSource]="heroesList.heroes"></mha-table>
+    <mha-table
+      [dataSource]="heroesList.heroes"
+      (editEmitter)="goToEdit($event)"
+      (deleteEmitter)="deleteHero($event)"
+    ></mha-table>
   </div>
   <div class="mha-home__paginator">
     <mat-paginator
@@ -22,3 +26,14 @@
     </mat-paginator>
   </div>
 </div>
+
+<ng-template #userDialogTemplate let-data>
+  <h1 mat-dialog-title>Emilinar heroe</h1>
+  <div mat-dialog-content>
+    <p>¿Desea eliminar a {{ data.heroData.name }}?</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="">Cancelar</button>
+    <button mat-button [mat-dialog-close]="data.heroData">Eliminar</button>
+  </div>
+</ng-template>

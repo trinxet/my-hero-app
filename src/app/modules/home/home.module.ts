@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './containers/home/home.component';
 import { homeRoutes } from './containers/home.routes';
 import { RouterModule } from '@angular/router';
-import { SharedModule, HeroService } from '../../shared';
+import { SharedModule } from '../../shared';
 import { FilterFormComponent } from './components/filter-form/filter-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [HomeComponent, FilterFormComponent],
@@ -18,10 +19,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatPaginatorModule,
     MatIconModule,
+    MatDialogModule,
     SharedModule,
 
     RouterModule.forChild(homeRoutes),
   ],
-  providers: [HeroService],
+  providers: [],
 })
 export class HomeModule {}

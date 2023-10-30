@@ -1,0 +1,37 @@
+<article class="mha-manage-hero">
+  <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+    <div class="mha-manage-hero__form">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input
+          upperCaseInput
+          matInput
+          type="text"
+          id="hero-name"
+          formControlName="name"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Compañia</mat-label>
+
+        <select matNativeControl formControlName="company">
+          <option *ngFor="let item of selectValues" value="{{ item.name }}">
+            {{ item.name }}
+          </option>
+        </select>
+      </mat-form-field>
+    </div>
+
+    <div class="mha-manage-hero__form-button">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!heroForm.valid"
+      >
+        Aceptar
+      </button>
+    </div>
+  </form>
+</article>

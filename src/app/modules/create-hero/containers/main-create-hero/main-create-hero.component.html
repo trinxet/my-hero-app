@@ -1,1 +1,13 @@
-<p>main-create-hero works!</p>
+<div class="main-create-hero">
+  <div class="main-create-hero__container">
+    <div class="main-create-hero__header">
+      <h1>Crea tu héroe</h1>
+    </div>
+    <div class="main-create-hero__form">
+      <mha-manage-hero
+        [heroMod]="myHero"
+        (submitEmitter)="manageSubmit($event)"
+      ></mha-manage-hero>
+    </div>
+  </div>
+</div>

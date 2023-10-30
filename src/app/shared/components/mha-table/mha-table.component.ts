@@ -1,11 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IHero } from '../../interfaces';
 
 @Component({
   selector: 'mha-table',
@@ -13,10 +7,18 @@ export interface PeriodicElement {
   styleUrls: ['./mha-table.component.scss'],
 })
 export class MhaTableComponent {
-  @Input() dataSource: PeriodicElement[] = [];
-  public displayedColumns = ['position', 'name', 'weight', 'symbol'];
+  @Input() dataSource: IHero[] = [];
+  @Output()
+  editEmitter: EventEmitter<IHero> = new EventEmitter<IHero>();
+  @Output()
+  deleteEmitter: EventEmitter<IHero> = new EventEmitter<IHero>();
+  public displayedColumns = ['position', 'name', 'company', 'options'];
 
-  public showImage(url: string) {
-    console.log(url);
+  public editElement(element: IHero) {
+    this.editEmitter.next(element);
+  }
+
+  public deleteElement(element: IHero) {
+    this.deleteEmitter.next(element);
   }
 }

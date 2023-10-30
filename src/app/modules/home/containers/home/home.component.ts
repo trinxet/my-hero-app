@@ -1,8 +1,21 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { APP_ROUTERS, HeroService } from 'src/app/shared';
-import { startWith, Subject, takeUntil, tap } from 'rxjs';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
+import {
+  APP_ROUTERS,
+  HeroService,
+  IHero,
+  IHeroListResponse,
+} from 'src/app/shared';
+import { Subject, takeUntil } from 'rxjs';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'mha-home',
@@ -10,7 +23,9 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public heroesList: any;
+  @ViewChild('userDialogTemplate')
+  userDialogTemplate: TemplateRef<any>;
+  public heroesList: IHeroListResponse;
   public totalLength = 0;
   public pageSize = 2;
   private isFilter = false;
@@ -19,7 +34,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private heroService: HeroService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -60,8 +77,36 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getHeroes(e.pageIndex, this.pageSize);
   }
 
-  public getCreateRoute() {
+  public getCreateRoute(): string {
     return '/' + APP_ROUTERS.CREATE_HERO.path;
+  }
+
+  public goToEdit(hero: IHero) {
+    this.router.navigate(['/' + APP_ROUTERS.UPDATE_HERO.path + '/' + hero.id]);
+  }
+
+  public deleteHero(hero: IHero) {
+    const dialogRef = this.dialog.open(this.userDialogTemplate, {
+      data: { heroData: hero },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.confirmDelete(result);
+      }
+    });
+  }
+
+  private confirmDelete(hero: IHero) {
+    this.loadingService.show();
+    this.heroService
+      .deleteHero(hero)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.loadingService.hide();
+          this.getHeroes(0, this.pageSize);
+        },
+      });
   }
 
   private getHeroes(pageNumber: number, itemsPerPage: number) {
@@ -70,7 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getMyHeroes(pageNumber, itemsPerPage)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
-        next: (result: any) => {
+        next: (result: IHeroListResponse) => {
           this.loadingService.hide();
           if (result && result.heroes) {
             this.heroesList = result;

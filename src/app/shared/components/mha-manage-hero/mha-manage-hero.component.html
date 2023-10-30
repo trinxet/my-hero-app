@@ -1,4 +1,4 @@
-<article class="mha-manage-hero">
+<article class="mha-manage-hero" *ngIf="heroForm">
   <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
     <div class="mha-manage-hero__form">
       <mat-form-field>

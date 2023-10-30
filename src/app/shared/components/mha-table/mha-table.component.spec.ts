@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MhaTableComponent } from './mha-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 describe('MhaTableComponent', () => {
   let component: MhaTableComponent;
@@ -8,9 +9,9 @@ describe('MhaTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MhaTableComponent ]
-    })
-    .compileComponents();
+      declarations: [MhaTableComponent],
+      imports: [MatTableModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MhaTableComponent);
     component = fixture.componentInstance;
